@@ -1,7 +1,8 @@
 import pygame
 import controls
 from gun import Gun
-
+from pygame.sprite import Group
+from alien import Alien
 def run():
 
     pygame.init()
@@ -9,13 +10,15 @@ def run():
     pygame.display.set_caption("Space Gurad")
     bg_color = (0,0,0)
     gun = Gun(screen)
+    bullets = Group()
+    aliens = Group()
+    controls.create_army(screen,aliens)
 
     while True:
-        controls.events(gun)
+        controls.events(screen,gun, bullets)
         gun.update()
-        screen.fill(bg_color)
-        gun.output()
-        pygame.display.flip()
-        
+        #bullets.update()
+        controls.update(bg_color, screen, gun,aliens, bullets)
+        controls.update_bullets(bullets)
 
 run()
